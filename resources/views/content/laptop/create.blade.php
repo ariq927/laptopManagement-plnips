@@ -28,8 +28,7 @@
         <label class="form-label">Status</label>
         <select name="status" class="form-select" required>
           <option value="tersedia">Tersedia</option>
-          <option value="dipinjam">Dipinjam</option>
-          <option value="maintenance">Maintenance</option>
+          <option value="dipinjam">Dipinjam</option>>
         </select>
       </div>
       <button type="submit" class="btn btn-primary">Simpan</button>
