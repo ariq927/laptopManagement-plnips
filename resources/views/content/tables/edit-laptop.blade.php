@@ -31,9 +31,11 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Stok</label>
-            <input type="number" class="form-control" name="stok" value="{{ $laptop->stok }}">
+            <label class="form-label">Status</label>
+            <input type="text" class="form-control" 
+                value="{{ ucfirst($laptop->status) }}" readonly>
         </div>
+
 
         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         <a href="{{ route('laptop.index') }}" class="btn btn-secondary">Batal</a>
