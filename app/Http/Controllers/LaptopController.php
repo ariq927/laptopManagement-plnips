@@ -17,7 +17,8 @@ class LaptopController extends Controller
                         return $query->where('merek', 'like', "%{$search}%")
                                      ->orWhere('tipe', 'like', "%{$search}%")
                                      ->orWhere('spesifikasi', 'like', "%{$search}%")
-                                     ->orWhere('serial_number', 'like', "%{$search}%");
+                                     ->orWhere('serial_number', 'like', "%{$search}%")
+                                     ->orWhere('status', 'like', "%{$search}%");
                     })
                     ->paginate($perPage) // gunakan paginate, bukan get
                     ->withQueryString(); // query string search tetap terbawa
@@ -46,4 +47,25 @@ class LaptopController extends Controller
 
         return redirect()->route('laptop.index')->with('success', 'Laptop berhasil ditambahkan!');
     }
+
+
+    public function archive($id)
+    {
+        $laptop = LaptopData::findOrFail($id);
+        $laptop->status = 'diarsip';
+        $laptop->save();
+
+        return redirect()->route('laptop.index')->with('success', 'Laptop berhasil diarsipkan.');
+    }
+
+    public function restore($id)
+    {
+        $laptop = LaptopData::findOrFail($id);
+        $laptop->status = 'tersedia'; // atau default status lain sesuai sistemmu
+        $laptop->save();
+
+        return redirect()->route('laptop.index')->with('success', 'Laptop berhasil dikembalikan.');
+    }
+
+
 }

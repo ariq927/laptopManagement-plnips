@@ -207,3 +207,7 @@ Route::get('/laptop/create', [LaptopController::class, 'create'])->name('laptop.
 Route::post('/laptop', [LaptopController::class, 'store'])->name('laptop.store');
 
 Route::get('/cari/peminjam', [PeminjamanNewController::class, 'cari'])->name('cari.nama');
+
+//Arsip Laptop
+Route::patch('/laptop/{id}/archive', [LaptopController::class, 'archive'])->name('laptop.archive');
+Route::patch('/laptop/{id}/restore', [LaptopController::class, 'restore'])->name('laptop.restore');
