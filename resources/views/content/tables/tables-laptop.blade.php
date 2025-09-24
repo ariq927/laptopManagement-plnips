@@ -48,37 +48,53 @@
                         <td>{{ $laptop->tipe }}</td>
                         <td>{{ $laptop->spesifikasi }}</td>
                         <td>{{ $laptop->serial_number }}</td>
-                        <td>
-                            @if(Auth::check())
-                                @if($laptop->status === 'dipinjam')
-                                    <button type="button" class="btn btn-sm btn-secondary" disabled>
-                                        <i class="bx bx-lock"></i> Dipinjam
-                                    </button>
-                                @else
-                                    <form action="{{ route('peminjaman.create', $laptop->id) }}" method="GET" style="display:inline-block;">
-                                        <button type="submit" class="btn btn-sm btn-primary">
-                                            <i class="bx bx-cart"></i> Pinjam
-                                        </button>
-                                    </form>
-                                @endif
+                       <td>
+    @if(Auth::check())
+        @if($laptop->status === 'diarsip')
+            <button type="button" class="btn btn-sm btn-secondary" disabled>
+                <i class="bx bx-archive"></i> Diarsip
+            </button>
 
-                                <a href="{{ route('laptop.edit', $laptop->id) }}" class="btn btn-sm btn-warning">
-                                    <i class="bx bx-edit"></i> Edit
-                                </a>
+            <form action="{{ route('laptop.restore', $laptop->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Kembalikan laptop ini?')">
+                @csrf
+                @method('PATCH')
+                <button type="submit" class="btn btn-sm btn-success">
+                    <i class="bx bx-undo"></i> Kembalikan
+                </button>
+            </form>
+        @elseif($laptop->status === 'dipinjam')
+            <button type="button" class="btn btn-sm btn-secondary" disabled>
+                <i class="bx bx-lock"></i> Dipinjam
+            </button>
+        @else
+            <form action="{{ route('peminjaman.create', $laptop->id) }}" method="GET" style="display:inline-block;">
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="bx bx-cart"></i> Pinjam
+                </button>
+            </form>
+        @endif
 
-                                <form action="{{ route('laptop.destroy', $laptop->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin ingin menghapus laptop ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i class="bx bx-trash"></i> Hapus
-                                    </button>
-                                </form>
-                            @else
-                                <a href="{{ route('auth-login-basic') }}" class="btn btn-sm btn-outline-primary">
-                                    <i class="bx bx-log-in"></i> Login untuk meminjam
-                                </a>
-                            @endif
-                        </td>
+        <a href="{{ route('laptop.edit', $laptop->id) }}" class="btn btn-sm btn-warning">
+            <i class="bx bx-edit"></i> Edit
+        </a>
+
+        @if($laptop->status !== 'diarsip')
+            <form action="{{ route('laptop.archive', $laptop->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Arsipkan laptop ini?')">
+                @csrf
+                @method('PATCH')
+                <button type="submit" class="btn btn-sm btn-danger">
+                    <i class="bx bx-archive-in"></i> Arsip
+                </button>
+            </form>
+        @endif
+    @else
+        <a href="{{ route('auth-login-basic') }}" class="btn btn-sm btn-outline-primary">
+            <i class="bx bx-log-in"></i> Login untuk meminjam
+        </a>
+    @endif
+</td>
+
+
                     </tr>
                 @empty
                     <tr>
