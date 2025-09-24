@@ -1,0 +1,52 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons bx bx-home-smile",
+      "slug": "dashboard",
+      "badge": [
+        "danger",
+        ""
+      ]
+    },
+   
+   
+    {
+      "menuHeader": "Daftar Lapop & Peminjam"
+    },
+
+    {
+      "url": "tables/laptop",
+      "icon": "menu-icon tf-icons bx bx-table",
+      "name": "Daftar Laptop",
+      "slug": "tables-basic"
+    },
+
+        
+    {
+      "url": "tables/basic",
+      "icon": "menu-icon tf-icons bx bx-table",
+      "name": "Daftar Peminjam",
+      "slug": "tables-basic"
+    },
+    
+    {
+      "menuHeader": "Misc"
+    },
+    {
+      "url": "https://github.com/themeselection/sneat-bootstrap-html-laravel-admin-template-free/issues",
+      "icon": "menu-icon tf-icons bx bx-support",
+      "name": "Support",
+      "slug": "support",
+      "target": "_blank"
+    },
+    {
+      "url": "https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/laravel-introduction.html",
+      "icon": "menu-icon tf-icons bx bx-file",
+      "name": "Documentation",
+      "slug": "documentation",
+      "target": "_blank"
+    }
+  ]
+}
