@@ -162,3 +162,33 @@
   }
 }
 
+.btn-custom {
+    border: 1px solid #125d72;
+    color: #125d72;
+    background-color: transparent;
+    transition: 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #125d72;
+    color: white;
+}
+
+
+.table-dark th {
+  background-color:#125d72 !important;
+  color: #fafafa !important; // biar teks tetap kebaca jelas
+}
+
+.btn-edit {
+    border: 1px solid #efe62f;
+    background-color: #efe62f;
+    color: #000; /* biar teks kelihatan jelas */
+    transition: 0.3s;
+}
+
+.btn-edit:hover {
+    background-color: #d6cf25; /* versi sedikit lebih gelap saat hover */
+    border-color: #d6cf25;
+    color: #000;
+}

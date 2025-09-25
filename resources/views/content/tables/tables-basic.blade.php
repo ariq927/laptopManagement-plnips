@@ -46,6 +46,7 @@
           </tr>
         </thead>
         <tbody>
+        
           @forelse($peminjams as $peminjam)
           <tr>
             <td>{{ $loop->iteration }}</td>

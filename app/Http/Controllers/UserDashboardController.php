@@ -17,6 +17,8 @@ class UserDashboardController extends Controller
         // Total & tersedia laptop
         $totalLaptop = LaptopData::count();
         $tersedia = LaptopData::where('status', 'tersedia')->count();
+        $diarsip = LaptopData::where('status', 'diarsip')->count();
+
 
         // Laptop yang dipinjam user
         $pinjamanUser = collect();
@@ -31,6 +33,7 @@ class UserDashboardController extends Controller
             'isGuest',
             'totalLaptop',
             'tersedia',
+            'diarsip',
             'pinjamanUser'
         ));
     }
