@@ -24,13 +24,14 @@
         <label class="form-label">Nomor Seri</label>
         <input type="text" name="serial_number" class="form-control" required>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Status</label>
-        <select name="status" class="form-select" required>
-          <option value="tersedia">Tersedia</option>
-          <option value="dipinjam">Dipinjam</option>>
-        </select>
-      </div>
+    <div class="mb-3">
+  <label class="form-label">Status</label>
+  <!-- input tampil seperti form tapi readonly -->
+  <input type="text" class="form-control" value="Tersedia" readonly>
+  <!-- value tetap dikirim ke server -->
+  <input type="hidden" name="status" value="tersedia">
+</div>
+
       <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
   </div>

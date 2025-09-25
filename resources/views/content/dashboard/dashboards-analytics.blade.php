@@ -55,26 +55,37 @@
   </div>
 
   <!-- TOTAL LAPTOP & TERSEDIA -->
-  <div class="col-12 mb-6">
-    <div class="row">
-      <div class="col-lg-6 col-md-12 mb-6">
-        <div class="card h-100">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
-            <p class="mb-1">Total Laptop</p>
-            <h4 class="card-title mb-0">{{ $totalLaptop ?? 0 }}</h4>
-          </div>
+ <div class="col-12 mb-6">
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 mb-6">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
+          <p class="mb-1">Total Laptop</p>
+          <h4 class="card-title mb-0">{{ $totalLaptop ?? 0 }}</h4>
         </div>
       </div>
-      <div class="col-lg-6 col-md-12 mb-6">
-        <div class="card h-100">
-          <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
-            <p class="mb-1">Tersedia</p>
-            <h4 class="card-title mb-0">{{ $tersedia ?? 0 }}</h4>
-          </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-6">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
+          <p class="mb-1">Tersedia</p>
+          <h4 class="card-title mb-0">{{ $tersedia ?? 0 }}</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-6">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
+          <p class="mb-1">Diarsip</p>
+          <h4 class="card-title mb-0">{{ $diarsip ?? 0 }}</h4>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 
   <!-- LAPTOP YANG DIPINJAM -->
   <!-- @if(!$isGuest)

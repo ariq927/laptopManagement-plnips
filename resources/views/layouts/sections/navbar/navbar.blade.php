@@ -40,7 +40,6 @@ $navbarDetached = $navbarDetached ?? '';
 
     <ul class="navbar-nav flex-row align-items-center ms-auto">
       <li class="nav-item lh-1 me-4">
-        <a class="github-button" href="{{ config('variables.repository') }}" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-laravel-admin-template-free on GitHub">Star</a>
       </li>
 
       <!-- User Dropdown -->

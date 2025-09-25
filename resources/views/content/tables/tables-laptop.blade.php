@@ -4,6 +4,8 @@
 
 @section('content')
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 <!-- Search & Per Page Filter -->
 <div class="d-flex justify-content-between mb-3">
     <!-- Form Pencarian -->
@@ -25,7 +27,13 @@
 </div>
 
 <div class="card">
-    <h5 class="card-header">Daftar Laptop</h5>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Daftar Laptop</h5>
+        <a href="{{ route('laptop.create') }}" class="btn btn-custom">
+            <i class="bi bi-plus-lg"></i> Tambah Laptop
+        </a>
+
+    </div>          
     <div class="table-responsive text-nowrap">
         <table class="table">
             <thead class="table-dark">
@@ -74,9 +82,9 @@
             </form>
         @endif
 
-        <a href="{{ route('laptop.edit', $laptop->id) }}" class="btn btn-sm btn-warning">
-            <i class="bx bx-edit"></i> Edit
-        </a>
+      <a href="{{ route('laptop.edit', $laptop->id) }}" class="btn btn-sm btn-edit">
+        <i class="bx bx-edit"></i> Edit
+    </a>
 
         @if($laptop->status !== 'diarsip')
             <form action="{{ route('laptop.archive', $laptop->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Arsipkan laptop ini?')">
