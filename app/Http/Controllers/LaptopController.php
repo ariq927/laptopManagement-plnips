@@ -13,17 +13,17 @@ class LaptopController extends Controller
         $perPage = $request->input('per_page', 10); // default 10
         $search = $request->input('search');
 
-        $laptops = LaptopData::when($search, function($query, $search) {
-                        return $query->where('merek', 'like', "%{$search}%")
-                                     ->orWhere('tipe', 'like', "%{$search}%")
-                                     ->orWhere('spesifikasi', 'like', "%{$search}%")
-                                     ->orWhere('serial_number', 'like', "%{$search}%")
-                                     ->orWhere('status', 'like', "%{$search}%");
-                    })
-                    ->paginate($perPage) // gunakan paginate, bukan get
-                    ->withQueryString(); // query string search tetap terbawa
+        $laptops = LaptopData::when($search, function ($query, $search) {
+                return $query->where('merek', 'like', "%{$search}%")
+                             ->orWhere('tipe', 'like', "%{$search}%")
+                             ->orWhere('spesifikasi', 'like', "%{$search}%")
+                             ->orWhere('serial_number', 'like', "%{$search}%")
+                             ->orWhere('status', 'like', "%{$search}%");
+            })
+            ->paginate($perPage) // ✅ pagination sesuai per_page
+            ->withQueryString();
 
-        return view('content.tables.tables-laptop', compact('laptops', 'perPage'));
+        return view('content.tables.tables-laptop', compact('laptops'));
     }
 
     // Form tambah laptop

@@ -53,7 +53,7 @@ $navbarDetached = $navbarDetached ?? '';
         <ul class="dropdown-menu dropdown-menu-end">
           @if(Auth::check())
             <li>
-              <a class="dropdown-item" href="{{ route('account.setting') }}">
+              <a class="dropdown-item">
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
