@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Peminjaman;
 use App\Models\LaptopData;
+use Illuminate\Support\Facades\DB;
 
 class UserDashboardController extends Controller
 {
@@ -19,8 +20,7 @@ class UserDashboardController extends Controller
         $tersedia = LaptopData::where('status', 'tersedia')->count();
         $diarsip = LaptopData::where('status', 'diarsip')->count();
 
-
-        // Laptop yang dipinjam user
+        // Laptop yang dipinjam user (hanya jika user login)
         $pinjamanUser = collect();
         if ($user) {
             $pinjamanUser = Peminjaman::with('laptop')
@@ -28,13 +28,20 @@ class UserDashboardController extends Controller
                 ->get();
         }
 
-        return view('content.dashboard.dashboards-analytics', compact(
-            'user',
-            'isGuest',
-            'totalLaptop',
-            'tersedia',
-            'diarsip',
-            'pinjamanUser'
-        ));
+        // Ambil jumlah laptop per merek
+        $laptopStats = LaptopData::select('merek', DB::raw('COUNT(*) as total'))
+            ->groupBy('merek')
+            ->orderByDesc('total')
+            ->get();
+
+        return view('content.dashboard.dashboards-analytics', [
+            'user' => $user,
+            'isGuest' => $isGuest,
+            'totalLaptop' => $totalLaptop,
+            'tersedia' => $tersedia,
+            'diarsip' => $diarsip,
+            'pinjamanUser' => $pinjamanUser,
+            'laptopStats' => $laptopStats, // <-- kirim ke Blade
+        ]);
     }
 }

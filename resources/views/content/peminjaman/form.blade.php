@@ -24,17 +24,18 @@
         <input type="text" id="department" name="department" class="form-control" readonly>
       </div>
 
-      {{-- Tanggal Mulai --}}
-      <div class="mb-3">
-        <label class="form-label">Tanggal Mulai</label>
-        <input type="date" name="tanggal_mulai" class="form-control" required>
-      </div>
+      {{-- Tanggal Mulai & Tanggal Selesai sejajar --}}
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Tanggal Mulai</label>
+            <input type="date" name="tanggal_mulai" class="form-control" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Tanggal Selesai</label>
+            <input type="date" name="tanggal_selesai" class="form-control" required>
+          </div>
+        </div>
 
-      {{-- Tanggal Selesai --}}
-      <div class="mb-3">
-        <label class="form-label">Tanggal Selesai</label>
-        <input type="date" name="tanggal_selesai" class="form-control" required>
-      </div>
 
       {{-- Nomor Telepon otomatis --}}
       <div class="mb-3">
@@ -56,49 +57,41 @@
 </div>
 @endsection
 
-
-
-{{-- ✅ Script Fetch + Select2 --}}
-@section('page-script')
+@push('scripts')
 <script>
 $(document).ready(function () {
-    const $namaSelect = $('#nama');
     const deptInput = document.getElementById('department');
     const phoneInput = document.getElementById('nomor_telepon');
 
-    fetch('/pegawai')
-        .then(response => response.json())
-        .then(res => {
-            console.log('Respon Pegawai:', res);
-            let employees = res.data || [];
-
-            // Masukin data ke dropdown
-            employees.forEach(emp => {
-                $namaSelect.append(
-                    $('<option>', {
-                        value: emp.employeeName,
+    $('#nama').select2({
+        placeholder: "Pilih Nama",
+        allowClear: true,
+        width: '100%',
+        ajax: {
+            url: '/pegawai',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return { q: params.term };
+            },
+            processResults: function (data) {
+                return {
+                    results: data.data.map(emp => ({
+                        id: emp.employeeName,
                         text: emp.employeeName,
-                        'data-dept': emp.department || '-',
-                        'data-phone': emp.phone || '-'
-                    })
-                );
-            });
+                        dept: emp.department || '-',
+                        phone: emp.phone || '-'
+                    }))
+                };
+            }
+        }
+    });
 
-            // Aktifkan Select2 setelah data masuk
-            $namaSelect.select2({
-                placeholder: "Pilih Nama",
-                allowClear: true,
-                width: '100%' // biar full lebar
-            });
-        })
-        .catch(error => console.error('Gagal fetch data pegawai:', error));
-
-    // Isi dept & telepon saat pilih nama
-    $namaSelect.on('change', function () {
-        const selected = $(this).find(':selected');
-        deptInput.value = selected.data('dept');
-        phoneInput.value = selected.data('phone');
+    $('#nama').on('select2:select', function (e) {
+        const selected = e.params.data;
+        deptInput.value = selected.dept;
+        phoneInput.value = selected.phone;
     });
 });
 </script>
-@endsection
+@endpush

@@ -1,22 +1,19 @@
-<!-- BEGIN: Vendor JS-->
+<!-- ✅ Load jQuery dari CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- Lanjutkan script bawaan -->
 @vite([
-  'resources/assets/vendor/libs/jquery/jquery.js',
   'resources/assets/vendor/libs/popper/popper.js',
   'resources/assets/vendor/js/bootstrap.js',
   'resources/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js',
   'resources/assets/vendor/js/menu.js'
 ])
 
-@yield('vendor-script')
-<!-- END: Page Vendor JS-->
-<!-- BEGIN: Theme JS-->
-@vite(['resources/assets/js/main.js'])
+<!-- ✅ Load Select2 setelah jQuery -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<!-- END: Theme JS-->
-<!-- Pricing Modal JS-->
+@yield('vendor-script')
+@vite(['resources/assets/js/main.js'])
 @stack('pricing-script')
-<!-- END: Pricing Modal JS-->
-<!-- BEGIN: Page JS-->
 @yield('page-script')
-<!-- END: Page JS-->

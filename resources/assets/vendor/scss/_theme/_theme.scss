@@ -180,15 +180,58 @@
   color: #fafafa !important; // biar teks tetap kebaca jelas
 }
 
-.btn-edit {
-    border: 1px solid #efe62f;
-    background-color: #efe62f;
-    color: #000; /* biar teks kelihatan jelas */
-    transition: 0.3s;
-}
 
 .btn-edit:hover {
     background-color: #d6cf25; /* versi sedikit lebih gelap saat hover */
     border-color: #d6cf25;
     color: #000;
+}
+
+.table-wrap td {
+  white-space: normal !important; /* Supaya bisa multi-line */
+  word-wrap: break-word; /* Pecah kata kalau kepanjangan */
+}
+
+
+.btn-action {
+    min-width: 90px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Tombol edit custom */
+.btn-edit {
+    background-color: #efe62f !important;
+    border-color: #efe62f !important;
+    color: #125d72 !important;
+}
+
+.stats-card {
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+
+  p {
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  h4 {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  &:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    background-color: #f0f8ff;
+    color: #0d6efd;
+  }
 }

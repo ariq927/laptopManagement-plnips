@@ -16,7 +16,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="canonical" href="{{ config('variables.productPage') ? config('variables.productPage') : '' }}">
   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/plnfavicon.ico') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/vendor/scss/theme-default.scss') }}">
+  @vite(['resources/assets/vendor/scss/theme-default.scss'])
+
 
 
   <!-- Include default styles -->
