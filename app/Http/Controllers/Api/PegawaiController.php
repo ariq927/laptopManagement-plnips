@@ -23,7 +23,6 @@ class PegawaiController extends Controller
 
         $json = $response->json();
 
-        // 🔥 Debug dulu biar kita tahu format aslinya
         return response()->json([
             'raw' => $json
         ]);

@@ -21,8 +21,7 @@ class PeminjamanNewController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $user = Auth::user(); // ambil user yg lagi login
-
+        $user = Auth::user(); 
         return view('content.peminjaman.form', compact('laptop', 'user'));
     }
 
@@ -33,7 +32,7 @@ class PeminjamanNewController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $user = Auth::user(); // user login
+        $user = Auth::user(); 
 
         $request->validate([
             'laptop_id' => 'required|exists:laptop_data,id',
@@ -44,7 +43,6 @@ class PeminjamanNewController extends Controller
         ]);
 
         DB::transaction(function () use ($request, $user) {
-            // Simpan ke data_peminjam (aktif)
             DataPeminjam::create([
                 'user_id' => $user->id,
                 'laptop_id' => $request->laptop_id,
@@ -55,7 +53,6 @@ class PeminjamanNewController extends Controller
                 'nomor_telepon' => $request->nomor_telepon,
             ]);
 
-            // Simpan juga ke histori_peminjaman
             HistoriPeminjaman::create([
                 'user_id' => $user->id,
                 'laptop_id' => $request->laptop_id,
@@ -76,7 +73,6 @@ class PeminjamanNewController extends Controller
         return redirect()->route('laptop.index')->with('success', 'Peminjaman berhasil disimpan!');
     }
 
-    // Tampilkan semua peminjaman (tabel aktif)
     public function index()
     {
         if (Auth::check()) {

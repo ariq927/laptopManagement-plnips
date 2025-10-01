@@ -7,7 +7,6 @@ use App\Models\LaptopData;
 
 class LaptopController extends Controller
 {
-    // Tampilkan semua laptop dengan pagination dan search
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10); // default 10
@@ -20,7 +19,7 @@ class LaptopController extends Controller
                              ->orWhere('serial_number', 'like', "%{$search}%")
                              ->orWhere('status', 'like', "%{$search}%");
             })
-            ->paginate($perPage) // ✅ pagination sesuai per_page
+            ->paginate($perPage) 
             ->withQueryString();
 
         return view('content.tables.tables-laptop', compact('laptops'));

@@ -18,7 +18,8 @@ $text-muted: #d9d9d9;
 // =====================
 $menu-bg-color: #14a2ba;    // biru muda PLN
 $menu-text-color: #ffffff;   // putih
-$menu-active-bg: rgba(255, 255, 255, 0.1); // highlight aktif
+$menu-active-bg: #ffffff;    // ✅ UBAH: background putih untuk menu aktif
+$menu-active-text: #14a2ba;  // ✅ TAMBAH: teks biru untuk menu aktif
 
 // =====================
 // Apply theme
@@ -44,9 +45,9 @@ $menu-active-bg: rgba(255, 255, 255, 0.1); // highlight aktif
   '.bg-menu-theme',
   $menu-bg-color,
   $color: $menu-text-color,
-  $active-color: $menu-text-color,
+  $active-color: $menu-active-text,  // ✅ UBAH: warna teks aktif jadi biru
   $border: transparent,
-  $active-bg: $menu-active-bg
+  $active-bg: $menu-active-bg  // ✅ UBAH: background aktif jadi putih
 );
 
 .bg-menu-theme {
@@ -62,7 +63,6 @@ $menu-active-bg: rgba(255, 255, 255, 0.1); // highlight aktif
     --bs-body-bg: #0000;
   }
 
-
   &.menu-vertical {
     box-shadow: 0 0.125rem 0.375rem 0 rgba(rgba-to-hex($gray-500, $rgba-to-hex-bg), 0.12);
   }
@@ -72,26 +72,43 @@ $menu-active-bg: rgba(255, 255, 255, 0.1); // highlight aktif
   .menu-inner .menu-item .menu-link:not(.active):hover {
     html:not(.layout-menu-collapsed) &,
     .layout-menu-hover.layout-menu-collapsed & {
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(255,255,255,0.15); // hover sedikit lebih terang
     }
   }
 
-  // menu item active
+  // ✅ PERBAIKI: menu item active - putih background, biru text
   .menu-inner > .menu-item.active > .menu-link {
-    color: $menu-text-color;
-    background-color: $menu-active-bg !important;
+    color: $menu-active-text !important;  // teks biru PLN
+    background-color: #ffffff !important;  // background putih solid
+    font-weight: 600 !important;  // buat bold
+    border-radius: 8px;  // rounded corner
+    
+    // Icon juga ikut biru
+    i, svg {
+      color: $menu-active-text !important;
+    }
   }
+  
   .menu-inner > .menu-item.active:before {
-    background: $menu-text-color;
+    background: $menu-active-text;  // indikator samping biru
   }
 
   // Sub menu item
   .menu-sub > .menu-item > .menu-link {
     color: $menu-text-color;
   }
-  .menu-sub > .menu-item.active > .menu-link:not(.menu-toggle):before {
-    background-color: $menu-text-color !important;
-    border: 3px solid rgba(255,255,255,0.2) !important;
+  
+  // ✅ PERBAIKI: Sub menu aktif juga putih
+  .menu-sub > .menu-item.active > .menu-link {
+    color: $menu-active-text !important;
+    background-color: #ffffff !important;  // background putih solid
+    font-weight: 600 !important;
+    border-radius: 8px;
+    
+    &:before {
+      background-color: $menu-active-text !important;
+      border: 3px solid $menu-bg-color !important;
+    }
   }
 }
 
