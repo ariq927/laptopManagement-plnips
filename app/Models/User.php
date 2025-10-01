@@ -10,7 +10,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // ===== fillable sudah termasuk department =====
     protected $fillable = [
         'username',
         'name',

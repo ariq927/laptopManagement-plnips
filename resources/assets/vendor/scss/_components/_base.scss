@@ -7,7 +7,12 @@ body {
   -moz-font-feature-settings: 'liga' on;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  // Tambahan untuk background
+   background: url('/assets/img/backgrounds/90685.jpg') no-repeat center center fixed !important;
+  background-size: cover !important;
 }
+
 
 @include media-breakpoint-up(md) {
   button.list-group-item {

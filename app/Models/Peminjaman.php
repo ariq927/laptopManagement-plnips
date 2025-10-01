@@ -19,6 +19,5 @@ class Peminjaman extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'username'); 
-        // username di users digunakan karena user_id di data_peminjam string
     }
 }

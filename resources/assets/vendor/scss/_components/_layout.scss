@@ -18,6 +18,7 @@
 .content-wrapper > *,
 .layout-menu {
   min-height: 1px;
+  background: transparent !important;
 }
 
 .layout-navbar,
@@ -30,6 +31,7 @@
   flex: 1 1 auto;
   align-items: stretch;
   padding: 0;
+  background:  transparent !important;
 
   // Without menu
   .layout-without-menu & {
@@ -44,6 +46,7 @@
   flex: 1 1 auto;
   flex-direction: column;
   justify-content: space-between;
+  background: transparent !important;
 }
 // Content backdrop
 .content-backdrop {
@@ -577,4 +580,9 @@ html:not(.layout-footer-fixed) .content-wrapper {
   100% {
     opacity: $modal-backdrop-opacity;
   }
+}
+
+.layout-wrapper {
+  background: url('/assets/img/backgrounds/90685.jpg') no-repeat center center fixed !important;
+  background-size: cover !important;
 }

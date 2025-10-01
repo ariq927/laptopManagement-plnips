@@ -31,12 +31,11 @@ class AdminController extends Controller
 
     public function loanAnalytics()
     {
-        // Data dummy, nanti bisa ambil dari database
         $labels = ['Jan', 'Feb', 'Mar'];
         $values = [5, 8, 3];
 
         $totalLaptop = LaptopData::count();
-        $laptopDipinjam = 0; // nanti bisa pakai query peminjaman
+        $laptopDipinjam = 0; 
         $totalUser = DB::table('users')->count();
 
         return view('content.admin.loan-analytics', compact('labels', 'values', 'totalLaptop', 'laptopDipinjam', 'totalUser'));

@@ -24,15 +24,16 @@
         <label class="form-label">Nomor Seri</label>
         <input type="text" name="serial_number" class="form-control" required>
       </div>
-    <div class="mb-3">
-  <label class="form-label">Status</label>
-  <!-- input tampil seperti form tapi readonly -->
-  <input type="text" class="form-control" value="Tersedia" readonly>
-  <!-- value tetap dikirim ke server -->
-  <input type="hidden" name="status" value="tersedia">
-</div>
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <input type="text" class="form-control" value="Tersedia" readonly>
+        <input type="hidden" name="status" value="tersedia">
+      </div>
 
-      <button type="submit" class="btn btn-primary">Simpan</button>
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="/tables/laptop" class="btn btn-secondary">Batal</a>
+      </div>
     </form>
   </div>
 </div>

@@ -82,6 +82,7 @@
     "highlight.js": "~11.9.0",
     "jquery": "~3.7.1",
     "laravel-vite-plugin": "1.0.1",
+    "lucide-react": "^0.544.0",
     "masonry-layout": "~4.2.2",
     "perfect-scrollbar": "~1.5.5",
     "react": "^19.1.1",

@@ -10,6 +10,21 @@
 @vite('resources/assets/vendor/libs/apex-charts/apexcharts.js')
 @endsection
 
+{{-- CSS khusus background dashboard --}}
+@section('page-style')
+<style>
+  .layout-wrapper {
+    background: url('/assets/img/backgrounds/bg2.jpg') no-repeat center center fixed !important;
+    background-size: cover !important;
+  }
+
+  .layout-page,
+  .content-wrapper {
+    background: transparent !important;
+  }
+</style>
+@endsection
+
 @section('content')
 @php
   use Illuminate\Support\Facades\Auth;
