@@ -171,7 +171,7 @@ Route::prefix('admin')->group(function () {
 
 // CRUD Laptop (user scope)
 Route::get('/laptop/{id}/edit', [AdminController::class, 'editLaptop'])->name('laptop.edit');
-Route::put('/laptop/{id}', [AdminController::class, 'updateLaptop'])->name('laptop.update');
+Route::put('/laptop/{laptop}', [LaptopController::class, 'update'])->name('laptop.update');
 Route::delete('/laptop/{id}', [AdminController::class, 'destroyLaptop'])->name('laptop.destroy');
 Route::get('/tables/laptop', [AdminController::class, 'index'])->name('laptop.index');
 Route::get('/peminjaman/create/{id}', [PeminjamanNewController::class, 'create'])->name('peminjaman.create');
@@ -183,20 +183,20 @@ Route::post('/login', [LoginBasic::class, 'login'])->name('login.post');
 
 // Route dashboard hanya bisa diakses jika login LDAP
 Route::get('/', [UserDashboardController::class, 'index'])
-    ->middleware('auth')
+    // ->middleware('auth')
     ->name('dashboard-analytics');
 
 Route::get('/dashboard', [UserDashboardController::class, 'index'])
-    ->middleware('auth')
+    // ->middleware('auth')
     ->name('dashboard');
 
 Route::post('/login', [LoginBasic::class, 'login'])->name('auth-login-basic-post');
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     Route::get('/laptop/create', [LaptopController::class, 'create'])->name('laptop.create');
     Route::post('/laptop', [LaptopController::class, 'store'])->name('laptop.store');
     Route::post('/peminjaman/store', [PeminjamanNewController::class, 'store'])->name('peminjaman.store');
-});
+// });
 
 
 

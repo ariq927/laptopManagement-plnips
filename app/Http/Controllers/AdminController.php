@@ -43,7 +43,6 @@ class AdminController extends Controller
 
     public function storeLaptop(Request $request)
     {
-        // Validasi input
         $request->validate([
             'merek' => 'required|string|max:255',
             'tipe' => 'required|string|max:255',
@@ -52,7 +51,6 @@ class AdminController extends Controller
             'stok' => 'nullable|integer|min:1',
         ]);
 
-        // Simpan laptop baru
         LaptopData::create([
             'merek' => $request->merek,
             'tipe' => $request->tipe,

@@ -18,7 +18,6 @@ class MenuServiceProvider extends ServiceProvider
             $verticalMenuJson = file_get_contents(base_path('resources/menu/verticalMenu.json'));
             $verticalMenuData = json_decode($verticalMenuJson);
 
-            // Cek role user tiap request
             if (auth()->check() && auth()->user()->role === 'admin') {
                 foreach ($verticalMenuData->menu as &$menu) {
                     if (isset($menu->slug) && $menu->slug === 'dashboard') {

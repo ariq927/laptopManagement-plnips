@@ -42,7 +42,6 @@ export default function LaptopTable() {
     }
   };
 
-  // Generate page numbers
   const renderPageNumbers = () => {
     const pages = [];
     const currentPage = pagination.current_page || 1;
@@ -56,7 +55,6 @@ export default function LaptopTable() {
       startPage = Math.max(1, endPage - maxVisible + 1);
     }
 
-    // First page
     if (startPage > 1) {
       pages.push(
         <button
@@ -84,7 +82,6 @@ export default function LaptopTable() {
       }
     }
 
-    // Page numbers
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <button
@@ -110,7 +107,6 @@ export default function LaptopTable() {
       );
     }
 
-    // Last page
     if (endPage < lastPage) {
       if (endPage < lastPage - 1) {
         pages.push(
@@ -158,14 +154,15 @@ export default function LaptopTable() {
             onChange={(e) => setPerPage(Number(e.target.value))}
           >
             <option value="10">10 / halaman</option>
-            <option value="20">20 / halaman</option>
+            <option value="25">25 / halaman</option>
             <option value="50">50 / halaman</option>
+            <option value="100">100 / halaman</option>
           </select>
 
           <input 
             type="text" 
             className="form-control" 
-            placeholder="Cari nama, departemen..." 
+            placeholder="Cari Laptop.. " 
             value={search} 
             onChange={(e) => setSearch(e.target.value)}
             style={{ 
@@ -188,7 +185,7 @@ export default function LaptopTable() {
               <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Tipe</th>
               <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Spesifikasi</th>
               <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Nomor Seri</th>
-              <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Actions</th>
+              <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -224,6 +221,7 @@ export default function LaptopTable() {
                     e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
                     e.currentTarget.style.transform = 'scale(1)';
                   }}
+                  onClick={() => window.location.href = `/laptop/${laptop.id}/edit`}
                 >
                   <td style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
                     {(pagination.from || 0) + index}

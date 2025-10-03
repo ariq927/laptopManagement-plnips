@@ -33,7 +33,6 @@ class LoginBasic extends Controller
             if ($response->ok() && isset($result['status']) && (int)$result['status'] === 200) {
                 $userData = $result['datas'] ?? [];
 
-                // Ambil department dari DN
                 $department = '-';
                 if (!empty($userData['distinguishedName'])) {
                     if (preg_match('/OU=([^,]+)/', $userData['distinguishedName'], $matches)) {
@@ -41,7 +40,6 @@ class LoginBasic extends Controller
                     }
                 }
 
-                // Simpan/Update user ke DB
                 $user = User::updateOrCreate(
                     ['username' => $userData['sAMAccountName'] ?? $request->username],
                     [
@@ -52,7 +50,6 @@ class LoginBasic extends Controller
                     ]
                 );
 
-                // Pakai Auth Laravel
                 Auth::login($user);
 
                 return redirect()->route('dashboard')->with('success', 'Login berhasil!');

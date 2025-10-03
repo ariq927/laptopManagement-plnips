@@ -14,7 +14,6 @@ class LdapAuth
     public function handle(Request $request, Closure $next)
     {
         if (!Session::has('user')) {
-            // Redirect ke login jika session 'user' tidak ada
             return redirect()->route('login')->with('error', 'Silahkan login terlebih dahulu.');
         }
 
