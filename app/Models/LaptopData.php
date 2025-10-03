@@ -18,5 +18,7 @@ class LaptopData extends Model
         'serial_number',
         'stok',
         'status', 
+        'foto',
+        'public_id'
     ];
 }

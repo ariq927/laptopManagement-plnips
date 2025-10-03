@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LaptopData;
+use Cloudinary\Cloudinary;
 
 class LaptopController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 10); // default 10
+        $perPage = $request->input('per_page', 10);
         $search = $request->input('search');
 
         $laptops = LaptopData::when($search, function ($query, $search) {
@@ -25,27 +26,99 @@ class LaptopController extends Controller
         return view('content.tables.tables-laptop', compact('laptops'));
     }
 
-    // Form tambah laptop
     public function create()
     {
         return view('content.laptop.create');
     }
 
-    // Simpan laptop baru
     public function store(Request $request)
-    {
-        $request->validate([
-            'merek' => 'required|string|max:255',
-            'tipe' => 'required|string|max:255',
-            'spesifikasi' => 'required|string',
-            'serial_number' => 'required|string|unique:laptop_data,serial_number',
-            'status' => 'required|in:tersedia,dipinjam,maintenance',
-        ]);
+{
+    $request->validate([
+        'merek' => 'required|string|max:255',
+        'tipe' => 'required|string|max:255',
+        'spesifikasi' => 'required|string',
+        'serial_number' => 'required|string|unique:laptop_data,serial_number',
+        'status' => 'required|in:tersedia,dipinjam,maintenance',
+        'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        LaptopData::create($request->all());
+    $data = $request->only(['merek', 'tipe', 'spesifikasi', 'serial_number', 'status']);
+    $data['stok'] = 1;
 
-        return redirect()->route('laptop.index')->with('success', 'Laptop berhasil ditambahkan!');
+    if ($request->hasFile('foto')) {
+        try {
+            $cloudinary = new Cloudinary([
+                'cloud' => [
+                    'cloud_name' => config('cloudinary.cloud_name'),
+                    'api_key'    => config('cloudinary.api_key'),
+                    'api_secret' => config('cloudinary.api_secret'),
+                ]
+            ]);
+
+            $uploadResult = $cloudinary->uploadApi()->upload(
+                $request->file('foto')->getRealPath(),
+                [
+                    'folder' => 'laptops',
+                    'resource_type' => 'image'
+                ]
+            );
+            
+            if (isset($uploadResult['secure_url'])) {
+                $data['foto'] = $uploadResult['secure_url'];
+                $data['public_id'] = $uploadResult['public_id'];
+            } else {
+                throw new \Exception('Tidak ada secure_url di response');
+            }
+            
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['foto' => 'Gagal upload foto: ' . $e->getMessage()]);
+        }
     }
+
+    LaptopData::create($data);
+
+    return redirect()->route('laptop.index')->with('success', 'Laptop berhasil ditambahkan!');
+}
+
+    
+    public function update(Request $request, LaptopData $laptop)
+{
+    $data = $request->only(['merek', 'tipe', 'spesifikasi', 'serial_number']);
+
+    $cloudinary = new \Cloudinary\Cloudinary([
+        'cloud' => [
+            'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+            'api_key'    => env('CLOUDINARY_API_KEY'),
+            'api_secret' => env('CLOUDINARY_API_SECRET'),
+        ],
+    ]);
+
+    if ($request->has('hapus_foto') && $laptop->public_id) {
+        $cloudinary->uploadApi()->destroy($laptop->public_id);
+        $data['foto'] = null;
+        $data['public_id'] = null;
+    }
+
+    if ($request->hasFile('foto')) {
+        if ($laptop->public_id) {
+            $cloudinary->uploadApi()->destroy($laptop->public_id);
+        }
+
+        $uploaded = $cloudinary->uploadApi()->upload(
+            $request->file('foto')->getRealPath(),
+            ['folder' => 'laptops']
+        );
+
+        $data['foto'] = $uploaded['secure_url'];
+        $data['public_id'] = $uploaded['public_id'];
+    }
+
+    $laptop->update($data);
+
+    return redirect()->route('laptop.index')->with('success', 'Laptop berhasil diperbarui!');
+}
 
 
     public function archive($id)
@@ -60,11 +133,9 @@ class LaptopController extends Controller
     public function restore($id)
     {
         $laptop = LaptopData::findOrFail($id);
-        $laptop->status = 'tersedia'; // atau default status lain sesuai sistemmu
+        $laptop->status = 'tersedia';
         $laptop->save();
 
         return redirect()->route('laptop.index')->with('success', 'Laptop berhasil dikembalikan.');
     }
-
-
 }

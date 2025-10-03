@@ -26,24 +26,20 @@ export default function LaptopChart({ data }) {
     );
   }
 
-  // Pastikan datanya sesuai format
   const chartData = data.map(item => ({
     merek: item.merek,
     total: item.total,
   }));
 
-  // Fungsi untuk generate warna unik berdasarkan nama merek
   const getColorFromString = (str) => {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
-    // Konversi hash ke warna HSL supaya warnanya selalu konsisten
     const hue = Math.abs(hash) % 360;
     return `hsl(${hue}, 70%, 50%)`;
   };
 
-  // Custom Tooltip dengan background cyan transparan
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (

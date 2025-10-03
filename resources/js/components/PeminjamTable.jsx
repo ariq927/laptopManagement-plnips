@@ -9,7 +9,6 @@ export default function PeminjamTable() {
   const [search, setSearch] = useState("");
   const [perPage, setPerPage] = useState(10);
 
-  // Modal state
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
@@ -45,7 +44,6 @@ export default function PeminjamTable() {
     }
   };
 
-  // Pagination numbers
   const renderPageNumbers = () => {
     const pages = [];
     const currentPage = pagination.current_page || 1;

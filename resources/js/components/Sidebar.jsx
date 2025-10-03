@@ -2,7 +2,6 @@ import React from "react";
 import { Home, Monitor, Users, HelpCircle, FileText } from "lucide-react";
 
 const Sidebar = () => {
-  // Ambil dari attribute body (Laravel yang set)
   const activeMenu = document.body.getAttribute("data-active-menu") || "";
 
   const menus = [

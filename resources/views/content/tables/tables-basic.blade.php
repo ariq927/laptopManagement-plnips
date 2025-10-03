@@ -18,19 +18,20 @@
 @endsection
 
 @section('content')
-  @if(!Auth::check())
+  {{-- Uncomment bagian ini nanti kalau API sudah jalan --}}
+  {{-- @if(!Auth::check())
     <div class="card" style="background: rgba(255, 255, 255, 0.95);">
       <div class="text-center p-4">
         <p>Silakan login untuk melihat daftar peminjam laptop.</p>
         <a href="{{ route('auth-login-basic') }}" class="btn btn-primary">Login</a>
       </div>
     </div>
-  @else
+  @else --}}
     <div id="react-peminjam-table"
          data-search="{{ request('search') }}"
          data-per-page="{{ $perPage ?? 10 }}">
     </div>
-  @endif
+  {{-- @endif --}}
 @endsection
 
 @push('scripts')

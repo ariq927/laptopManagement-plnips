@@ -45,13 +45,12 @@ $menu-active-text: #14a2ba;  // ✅ TAMBAH: teks biru untuk menu aktif
   '.bg-menu-theme',
   $menu-bg-color,
   $color: $menu-text-color,
-  $active-color: $menu-active-text,  // ✅ UBAH: warna teks aktif jadi biru
+  $active-color: $menu-active-text, 
   $border: transparent,
-  $active-bg: $menu-active-bg  // ✅ UBAH: background aktif jadi putih
+  $active-bg: $menu-active-bg  
 );
 
 .bg-menu-theme {
-  // Menu header
   .menu-header {
     color: $menu-text-color;
     &:before {
@@ -72,36 +71,32 @@ $menu-active-text: #14a2ba;  // ✅ TAMBAH: teks biru untuk menu aktif
   .menu-inner .menu-item .menu-link:not(.active):hover {
     html:not(.layout-menu-collapsed) &,
     .layout-menu-hover.layout-menu-collapsed & {
-      background-color: rgba(255,255,255,0.15); // hover sedikit lebih terang
+      background-color: rgba(255,255,255,0.15); 
     }
   }
 
-  // ✅ PERBAIKI: menu item active - putih background, biru text
   .menu-inner > .menu-item.active > .menu-link {
-    color: $menu-active-text !important;  // teks biru PLN
-    background-color: #ffffff !important;  // background putih solid
-    font-weight: 600 !important;  // buat bold
-    border-radius: 8px;  // rounded corner
+    color: $menu-active-text !important;  
+    background-color: #ffffff !important;  
+    font-weight: 600 !important;  
+    border-radius: 8px;  
     
-    // Icon juga ikut biru
-    i, svg {
+     i, svg {
       color: $menu-active-text !important;
     }
   }
   
   .menu-inner > .menu-item.active:before {
-    background: $menu-active-text;  // indikator samping biru
+    background: $menu-active-text;  
   }
 
-  // Sub menu item
   .menu-sub > .menu-item > .menu-link {
     color: $menu-text-color;
   }
   
-  // ✅ PERBAIKI: Sub menu aktif juga putih
   .menu-sub > .menu-item.active > .menu-link {
     color: $menu-active-text !important;
-    background-color: #ffffff !important;  // background putih solid
+    background-color: #ffffff !important;  
     font-weight: 600 !important;
     border-radius: 8px;
     
@@ -112,7 +107,6 @@ $menu-active-text: #14a2ba;  // ✅ TAMBAH: teks biru untuk menu aktif
   }
 }
 
-// Toggle menu brand
 .app-brand .layout-menu-toggle {
   background-color: $menu-bg-color;
   border: 7px solid $body-bg;

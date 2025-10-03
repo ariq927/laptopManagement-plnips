@@ -10,7 +10,6 @@ class Kernel extends HttpKernel
      * Global HTTP middleware stack.
      */
     protected $middleware = [
-        // middleware global Laravel
         \App\Http\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
@@ -24,7 +23,7 @@ class Kernel extends HttpKernel
      * Route middleware.
      */
     protected $routeMiddleware = [
-        'auth.ldap' => \App\Http\Middleware\LdapAuth::class, // <-- middleware LDAP
+        'auth.ldap' => \App\Http\Middleware\LdapAuth::class, 
         'auth' => \App\Http\Middleware\Authenticate::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,

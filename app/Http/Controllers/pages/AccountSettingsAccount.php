@@ -23,15 +23,13 @@ class AccountSettingsAccount extends Controller
           'address' => 'nullable|string|max:255',
       ]);
 
-      // Ambil detail user yang sedang login
       $userDetail = \App\Models\UsersDetail::where('user_id', auth()->id())->first();
 
       if (!$userDetail) {
           $userDetail = new \App\Models\UsersDetail();
-          $userDetail->user_id = auth()->id(); // set user_id kalau belum ada
+          $userDetail->user_id = auth()->id(); 
       }
 
-      // Update data
       $userDetail->fill($validated);
       $userDetail->save();
 

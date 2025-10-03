@@ -4,62 +4,12 @@ $navbarDetached = $navbarDetached ?? '';
 @endphp
 
 <style>
-  /* Navbar transparan dengan warna cyan */
-  .layout-navbar {
-    background: rgba(20, 162, 186, 0.75) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(20, 162, 186, 0.4);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
+  .avatar::after {
+  background: none !important;
+  content: none !important;
+  box-shadow: none !important;
+}
 
-  /* Text di navbar jadi putih dengan shadow */
-  .layout-navbar .navbar-brand-text,
-  .layout-navbar .nav-item span,
-  .layout-navbar .fw-bold {
-    color: #fff !important;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-    font-weight: bold;
-  }
-
-  /* Dropdown menu transparan */
-  .dropdown-menu {
-    background: rgba(20, 162, 186, 0.95) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(20, 162, 186, 0.4);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  }
-
-  .dropdown-item {
-    color: #fff !important;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-    transition: all 0.2s ease;
-  }
-
-  .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    transform: translateX(5px);
-  }
-
-  .dropdown-divider {
-    border-color: rgba(255, 255, 255, 0.3) !important;
-  }
-
-  .dropdown-item h6,
-  .dropdown-item small {
-    color: #fff !important;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-  }
-
-  /* Avatar border cyan */
-  .avatar {
-    border: 2px solid rgba(20, 162, 186, 0.6);
-    box-shadow: 0 0 10px rgba(20, 162, 186, 0.4);
-  }
-
-  /* Icon di dropdown */
-  .dropdown-item i {
-    color: #fff !important;
-  }
 </style>
 
 <!-- Navbar -->
