@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import LaptopTable from "./components/LaptopTable.jsx";
 import Sidebar from "./components/Sidebar.jsx"; 
 import PeminjamTable from "./components/PeminjamTable.jsx";
+import Laporan from './components/Laporan.jsx';
 
 if (!window.dashboardRoot) window.dashboardRoot = null;
 if (!window.laptopRoot) window.laptopRoot = null;
@@ -47,3 +48,6 @@ if (sidebarEl) {
   }
   window.sidebarRoot.render(<Sidebar />);
 }
+
+const root = ReactDOM.createRoot(document.getElementById('app'));
+root.render(<Laporan />)

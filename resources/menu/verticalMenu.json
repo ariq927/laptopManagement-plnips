@@ -32,12 +32,12 @@
     },
     
     {
-      "menuHeader": "Misc"
+      "menuHeader": "Laporan"
     },
     {
-      "url": "https://github.com/themeselection/sneat-bootstrap-html-laravel-admin-template-free/issues",
+      "url": "/laporan",
       "icon": "menu-icon tf-icons bx bx-support",
-      "name": "Support",
+      "name": "Laporan",
       "slug": "support",
       "target": "_blank"
     },

@@ -181,10 +181,10 @@ export default function LaptopTable() {
           <thead style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
             <tr>
               <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>No</th>
+              <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>ID Laptop</th>
               <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Merek</th>
               <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Tipe</th>
               <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Spesifikasi</th>
-              <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Nomor Seri</th>
               <th style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>Aksi</th>
             </tr>
           </thead>
@@ -227,6 +227,9 @@ export default function LaptopTable() {
                     {(pagination.from || 0) + index}
                   </td>
                   <td style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
+                    {laptop.id}
+                  </td>
+                  <td style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
                     {laptop.merek}
                   </td>
                   <td style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
@@ -234,9 +237,6 @@ export default function LaptopTable() {
                   </td>
                   <td style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
                     {laptop.spesifikasi}
-                  </td>
-                  <td style={{ color: '#fff', fontWeight: 'bold', textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
-                    {laptop.serial_number}
                   </td>
                   <td className="d-flex gap-1" style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}>
                     {laptop.status === "tersedia" && (
@@ -248,13 +248,35 @@ export default function LaptopTable() {
                     )}
 
                     {laptop.status === "diarsip" && (
-                      <button className="btn btn-success btn-sm" onClick={() => handleRestore(laptop.id)}>Kembalikan</button>
+                      <button
+                        className="btn btn-success btn-sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRestore(laptop.id);
+                        }}
+                      >
+                        Kembalikan
+                      </button>
                     )}
 
                     {laptop.status === "tersedia" && (
                       <>
-                        <a href={`/laptop/${laptop.id}/edit`} className="btn btn-warning btn-sm">Detail</a>
-                        <button className="btn btn-danger btn-sm" onClick={() => handleArchive(laptop.id)}>Arsip</button>
+                        <a
+                          href={`/laptop/${laptop.id}/edit`}
+                          className="btn btn-warning btn-sm"
+                          onClick={(e) => e.stopPropagation()} // tambahin ini juga
+                        >
+                          Detail
+                        </a>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleArchive(laptop.id);
+                          }}
+                        >
+                          Arsip
+                        </button>
                       </>
                     )}
                   </td>

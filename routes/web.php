@@ -49,6 +49,9 @@ use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\PeminjamanNewController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\Api\PegawaiController;
+use App\Exports\LaptopsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
 
@@ -211,3 +214,12 @@ Route::get('/cari/peminjam', [PeminjamanNewController::class, 'cari'])->name('ca
 //Arsip Laptop
 Route::patch('/laptop/{id}/archive', [LaptopController::class, 'archive'])->name('laptop.archive');
 Route::patch('/laptop/{id}/restore', [LaptopController::class, 'restore'])->name('laptop.restore');
+
+// buat laporan 
+Route::get('/laporan', function() {
+    return view('content.reports.laporan');
+})->name('laporan');
+
+Route::get('/laporan/export', [ReportController::class, 'export'])->name('laporan.export');
+
+Route::get('/laporan/preview-pdf', [ReportController::class, 'previewPDF'])->name('laporan.previewPDF');

@@ -9,26 +9,25 @@ use App\Http\Controllers\Controller;
 class PegawaiController extends Controller
 {
     public function index(Request $request)
-{
-    try {
-        $response = Http::withOptions(['verify' => false])
-            ->get('https://i-morning.plnipservices.co.id/api/get/data/employee');
+    {
+        try {
+            $response = Http::withOptions(['verify' => false])
+                ->get(config('services.pegawai.url') . '/get/data/employee');
 
-        if ($response->failed()) {
+            if ($response->failed()) {
+                return response()->json([
+                    'error' => 'Gagal ambil data pegawai',
+                    'status' => $response->status()
+                ], $response->status());
+            }
+
+            $json = $response->json();
+
             return response()->json([
-                'error' => 'Gagal ambil data pegawai',
-                'status' => $response->status()
-            ], $response->status());
+                'raw' => $json
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        $json = $response->json();
-
-        return response()->json([
-            'raw' => $json
-        ]);
-    } catch (\Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
     }
-}
-
 }
