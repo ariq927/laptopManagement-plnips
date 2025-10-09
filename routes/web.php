@@ -242,8 +242,3 @@ Route::get('/ldap-test', function () {
     }
 });
 
-
-Route::get('/migrate-now', function() {
-    Artisan::call('migrate', ['--force' => true]);
-    return 'Migration done!';
-});
