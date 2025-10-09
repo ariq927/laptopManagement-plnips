@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -16,19 +17,52 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('dashboard-analytics'); 
+        $ldapApiUrl = env('LDAP_API_URL');
+
+        try {
+            $response = Http::asForm()->withoutVerifying()->post($ldapApiUrl, [
+                'username' => $request->username,
+                'password' => $request->password,
+            ]);
+
+            \Log::info('LDAP Response:', [
+                'status_code' => $response->status(),
+                'body' => $response->body(),
+            ]);
+
+            $data = json_decode($response->body(), true);
+
+            if ($response->successful() && isset($data['message']) && strtolower($data['message']) === 'success') {
+                $ldapUser = $data['datas'] ?? null;
+
+                $user = User::firstOrCreate(
+                    ['username' => $request->username],
+                    [
+                        'name' => $ldapUser['displayName'] ?? $request->username,
+                        'email' => $ldapUser['mail'] ?? $request->username.'@example.com',
+                        'password' => Hash::make($request->password) 
+                    ]
+                );
+
+                Auth::login($user); 
+                session(['ldap_user' => $ldapUser]);
+
+                return redirect()->route('dashboard');
+            }
+
+            $errorMessage = $data['message'] ?? 'Username atau password salah.';
+            return back()->withErrors(['username' => 'Login gagal: ' . $errorMessage])->withInput();
+
+        } catch (\Exception $e) {
+            return back()->withErrors([
+                'username' => 'Terjadi kesalahan koneksi ke server LDAP: ' . $e->getMessage(),
+            ])->withInput();
         }
-
-        return back()->withErrors(['email' => 'Email atau password salah']);
-    }
-
-    public function showRegister()
-    {
-        return view('content.authentications.auth-register-basic');
     }
 
     public function register(Request $request)
@@ -47,12 +81,13 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard-analytics'); 
+        return redirect()->route('dashboard');
     }
 
     public function logout()
     {
         Auth::logout();
+        session()->flush();
         return redirect('/login');
     }
 }

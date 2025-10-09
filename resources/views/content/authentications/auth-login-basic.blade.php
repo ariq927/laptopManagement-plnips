@@ -10,17 +10,22 @@
 <div class="container-xxl">
   <div class="authentication-wrapper authentication-basic container-p-y">
     <div class="authentication-inner">
-      <!-- Login Card -->
       <div class="card px-sm-6 px-0">
         <div class="card-body">
           <h4 class="mb-1">Selamat Datang 👋</h4>
           <p class="mb-6">Silakan login menggunakan akun LDAP Anda.</p>
 
+          @if ($errors->any())
+            <div class="alert alert-danger mt-3">
+              {{ $errors->first() }}
+            </div>
+          @endif
+
           <form action="{{ route('auth-login-basic-post') }}" method="POST">
             @csrf
             <div class="mb-6">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" name="username" required autofocus>
+              <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required autofocus>
             </div>
 
             <div class="mb-6 form-password-toggle">
@@ -35,7 +40,6 @@
           </form>
         </div>
       </div>
-      <!-- /Login Card -->
     </div>
   </div>
 </div>

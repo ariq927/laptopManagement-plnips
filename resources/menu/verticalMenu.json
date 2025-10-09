@@ -32,21 +32,20 @@
     },
     
     {
+      "url": "arsip/laptop",
+      "icon": "menu-icon tf-icons bx bx-table",
+      "name": "Laptop Diarsip",
+      "slug": "arsip-laptop"
+    },
+    
+    {
       "menuHeader": "Laporan"
     },
     {
       "url": "/laporan",
-      "icon": "menu-icon tf-icons bx bx-support",
-      "name": "Laporan",
-      "slug": "support",
-      "target": "_blank"
-    },
-    {
-      "url": "https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/laravel-introduction.html",
       "icon": "menu-icon tf-icons bx bx-file",
-      "name": "Documentation",
-      "slug": "documentation",
-      "target": "_blank"
+      "name": "Laporan",
+      "slug": "support"
     }
   ]
 } 

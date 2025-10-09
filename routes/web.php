@@ -61,7 +61,7 @@ use App\Http\Controllers\tables\Basic as TablesBasic;
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-
+Route::post('/auth/login-basic', [AuthController::class, 'login'])->name('auth-login-basic-post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
@@ -146,7 +146,7 @@ Route::view('/form-layout-horizontal', 'content.form-layout.form-layouts-horizon
 Route::get('/peminjaman', [PeminjamanNewController::class, 'index'])->name('peminjaman.index');
 Route::get('/peminjaman/create/{id}', [PeminjamanNewController::class, 'create'])->name('peminjaman.create');
 Route::delete('/peminjaman/selesai/{id}', [PeminjamanNewController::class, 'selesai'])->name('peminjaman.selesai');
-Route::get('/tables/basic', [PeminjamanNewController::class, 'index'])->name('tables.basic');
+Route::get('/tables/basic', [PeminjamanNewController::class, 'index'])->middleware('auth')->name('tables.basic');
 Route::delete('/peminjaman/{id}/selesai', [PeminjamanNewController::class, 'selesai'])->name('peminjaman.selesai');
 
 
@@ -176,7 +176,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/laptop/{id}/edit', [AdminController::class, 'editLaptop'])->name('laptop.edit');
 Route::put('/laptop/{laptop}', [LaptopController::class, 'update'])->name('laptop.update');
 Route::delete('/laptop/{id}', [AdminController::class, 'destroyLaptop'])->name('laptop.destroy');
-Route::get('/tables/laptop', [AdminController::class, 'index'])->name('laptop.index');
+Route::get('/tables/laptop', [AdminController::class, 'index'])->middleware('auth')->name('laptop.index');
 Route::get('/peminjaman/create/{id}', [PeminjamanNewController::class, 'create'])->name('peminjaman.create');
 Route::delete('/peminjaman/selesai/{id}', [PeminjamanNewController::class, 'selesai'])->name('peminjaman.selesai');
 
@@ -190,17 +190,16 @@ Route::get('/', [UserDashboardController::class, 'index'])
     ->name('dashboard-analytics');
 
 Route::get('/dashboard', [UserDashboardController::class, 'index'])
-    // ->middleware('auth')
+    ->middleware('auth')
     ->name('dashboard');
 
-Route::post('/login', [LoginBasic::class, 'login'])->name('auth-login-basic-post');
+Route::post('/login', [AuthController::class, 'login'])->name('auth-login-basic-post');
 
 // Route::middleware(['auth'])->group(function () {
     Route::get('/laptop/create', [LaptopController::class, 'create'])->name('laptop.create');
     Route::post('/laptop', [LaptopController::class, 'store'])->name('laptop.store');
     Route::post('/peminjaman/store', [PeminjamanNewController::class, 'store'])->name('peminjaman.store');
 // });
-
 
 
 Route::get('/pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
@@ -214,12 +213,33 @@ Route::get('/cari/peminjam', [PeminjamanNewController::class, 'cari'])->name('ca
 //Arsip Laptop
 Route::patch('/laptop/{id}/archive', [LaptopController::class, 'archive'])->name('laptop.archive');
 Route::patch('/laptop/{id}/restore', [LaptopController::class, 'restore'])->name('laptop.restore');
+Route::get('/arsip/laptop', [LaptopController::class, 'arsipLaptop'])->middleware('auth')->name('arsip.tabel');
 
 // buat laporan 
 Route::get('/laporan', function() {
     return view('content.reports.laporan');
-})->name('laporan');
-
+})->middleware('auth')->name('laporan');
 Route::get('/laporan/export', [ReportController::class, 'export'])->name('laporan.export');
-
 Route::get('/laporan/preview-pdf', [ReportController::class, 'previewPDF'])->name('laporan.previewPDF');
+
+
+Route::get('/ldap-test', function () {
+    try {
+        $response = \Illuminate\Support\Facades\Http::withOptions(['verify' => false])
+            ->post(env('LDAP_API_URL'), [
+                'username' => 'test',
+                'password' => 'test',
+            ]);
+
+        return response()->json([
+            'ok' => true,
+            'status' => $response->status(),
+            'body' => $response->body(),
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'ok' => false,
+            'error' => $e->getMessage(),
+        ], 500);
+    }
+});

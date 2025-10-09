@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PegawaiController;
 use App\Models\LaptopData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PeminjamanNewController;
+use App\Http\Controllers\LaptopController;
 
 Route::get('/pegawai', [PegawaiController::class, 'index']);
 
@@ -39,6 +40,14 @@ Route::patch('/laptop/{id}/restore', function ($id) {
 });
 
 
+Route::get('/laptop/arsip', [LaptopController::class, 'apiArsipLaptop']);
+Route::patch('/laptop/{id}/restore', [LaptopController::class, 'apiRestore']);
+Route::patch('/laptop/{id}/archive', [LaptopController::class, 'apiArchive']);
+
+
+Route::get('/laptops/arsip', function() {
+    return LaptopData::where('status', 'diarsip')->get();
+});
 
 //Peminjam
 Route::get('/peminjam', [PeminjamanNewController::class, 'apiIndex']);

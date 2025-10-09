@@ -13,7 +13,6 @@ class UserDashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $isGuest = !$user;
 
         $totalLaptop = LaptopData::count();
         $tersedia = LaptopData::where('status', 'tersedia')->count();
@@ -22,7 +21,7 @@ class UserDashboardController extends Controller
         $pinjamanUser = collect();
         if ($user) {
             $pinjamanUser = Peminjaman::with('laptop')
-                ->where('user_id', $user->username) 
+                ->where('user_id', $user->username)
                 ->get();
         }
 
@@ -31,14 +30,48 @@ class UserDashboardController extends Controller
             ->orderByDesc('total')
             ->get();
 
+        $ldapData = session('ldap_user');
+
+        if ($ldapData) {
+            $userData = [
+                'name' => $ldapData['displayName'] ?? 'Guest',
+                'email' => $ldapData['mail'] ?? '-',
+                'department' => $this->extractDepartment($ldapData['distinguishedName'] ?? ''),
+            ];
+        } elseif ($user) {
+            $userData = [
+                'name' => $user->name ?? 'Guest',
+                'email' => $user->email ?? '-',
+                'department' => $user->department ?? '-',
+            ];
+        } else {
+            $userData = [
+                'name' => 'Guest',
+                'email' => '-',
+                'department' => '-',
+            ];
+        }
+
         return view('content.dashboard.dashboards-analytics', [
-            'user' => $user,
-            'isGuest' => $isGuest,
+            'user' => $userData,
+            'isGuest' => $userData['name'] === 'Guest',
             'totalLaptop' => $totalLaptop,
             'tersedia' => $tersedia,
             'diarsip' => $diarsip,
             'pinjamanUser' => $pinjamanUser,
-            'laptopStats' => $laptopStats, // <-- kirim ke Blade
+            'laptopStats' => $laptopStats,
         ]);
     }
+
+    private function extractDepartment($dn)
+    {
+        preg_match_all('/OU=([^,]+)/', $dn, $matches);
+
+        if (!empty($matches[1]) && isset($matches[1][1])) {
+            return $matches[1][1];
+        }
+
+        return '-';
+    }
+
 }

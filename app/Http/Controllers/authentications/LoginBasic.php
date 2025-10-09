@@ -46,7 +46,7 @@ class LoginBasic extends Controller
                         'name'       => $userData['displayName'] ?? $request->username,
                         'email'      => $userData['mail'] ?? $request->username . '@example.com',
                         'department' => $department,
-                        'password'   => bcrypt($request->password), // dummy
+                        'password'   => bcrypt($request->password), 
                     ]
                 );
 

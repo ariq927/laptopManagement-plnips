@@ -2,40 +2,28 @@
 
 namespace App\Exports;
 
-use App\Models\Laptop;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class LaptopsExport implements FromCollection, WithHeadings
+class LaptopsExport implements FromView, WithTitle
 {
-    protected $filters;
+    protected $peminjaman;
 
-    public function __construct($filters = [])
+    public function __construct($peminjaman)
     {
-        $this->filters = $filters;
+        $this->peminjaman = $peminjaman;
     }
 
-    public function collection()
+    public function view(): View
     {
-        $query = Laptop::query();
-
-        if(!empty($this->filters['departemen'])) {
-            $query->where('departemen', $this->filters['departemen']);
-        }
-
-        if(!empty($this->filters['status'])) {
-            $query->where('status', $this->filters['status']);
-        }
-
-        if(!empty($this->filters['tanggal'])) {
-            $query->whereDate('tanggal_pinjam', $this->filters['tanggal']);
-        }
-
-        return $query->get(['id','merk','tipe','status','departemen','tanggal_pinjam','tanggal_kembali']);
+        return view('content.reports.laptops_excel', [
+            'laptops' => $this->peminjaman
+        ]);
     }
 
-    public function headings(): array
+    public function title(): string
     {
-        return ['ID','Merk','Tipe','Status','Departemen','Tanggal Pinjam','Tanggal Kembali'];
+        return 'Laporan Peminjaman Laptop';
     }
 }

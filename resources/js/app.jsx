@@ -2,21 +2,16 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import LaptopTable from "./components/LaptopTable.jsx";
-import Sidebar from "./components/Sidebar.jsx"; 
+import Sidebar from "./components/Sidebar.jsx";
 import PeminjamTable from "./components/PeminjamTable.jsx";
 import Laporan from './components/Laporan.jsx';
+import ArchiveLaptopTable from "./components/ArchiveLaptopTable.jsx";
 
-if (!window.dashboardRoot) window.dashboardRoot = null;
-if (!window.laptopRoot) window.laptopRoot = null;
-if (!window.sidebarRoot) window.sidebarRoot = null;
-
+// ===== Dashboard =====
 const dashboardEl = document.getElementById("react-dashboard");
 if (dashboardEl) {
   const data = window.dashboardData || {};
-  if (!window.dashboardRoot) {
-    window.dashboardRoot = createRoot(dashboardEl);
-  }
-  window.dashboardRoot.render(
+  createRoot(dashboardEl).render(
     <Dashboard
       user={data.user || null}
       totalLaptop={data.totalLaptop || 0}
@@ -28,26 +23,32 @@ if (dashboardEl) {
   );
 }
 
+// ===== Laptop Table =====
+const laptopEl = document.getElementById("laptop-table");
+if (laptopEl) {
+  createRoot(laptopEl).render(<LaptopTable />);
+}
+
+// ===== Peminjam Table =====
 const peminjamEl = document.getElementById("react-peminjam-table");
 if (peminjamEl) {
   createRoot(peminjamEl).render(<PeminjamTable />);
 }
 
-const laptopEl = document.getElementById("laptop-table");
-if (laptopEl) {
-  if (!window.laptopRoot) {
-    window.laptopRoot = createRoot(laptopEl);
-  }
-  window.laptopRoot.render(<LaptopTable />);
+// ===== Archive Laptop Table =====
+const archiveEl = document.getElementById("archive-laptop-table");
+if (archiveEl) {
+  createRoot(archiveEl).render(<ArchiveLaptopTable />);
 }
 
+// ===== Sidebar =====
 const sidebarEl = document.getElementById("sidebar");
 if (sidebarEl) {
-  if (!window.sidebarRoot) {
-    window.sidebarRoot = createRoot(sidebarEl);
-  }
-  window.sidebarRoot.render(<Sidebar />);
+  createRoot(sidebarEl).render(<Sidebar />);
 }
 
-const root = ReactDOM.createRoot(document.getElementById('app'));
-root.render(<Laporan />)
+// ===== Laporan =====
+const appEl = document.getElementById("app");
+if (appEl) {
+  createRoot(appEl).render(<Laporan />);
+}

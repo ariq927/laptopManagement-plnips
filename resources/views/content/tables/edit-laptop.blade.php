@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h4 class="mb-4">Edit Data Laptop</h4>
+    <h4 class="mb-4">Data Laptop</h4>
 
     @php
         $isReadOnly = ($laptop->status === 'dipinjam');

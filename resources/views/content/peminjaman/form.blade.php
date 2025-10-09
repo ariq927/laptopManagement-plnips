@@ -74,16 +74,17 @@ $(document).ready(function () {
             data: function (params) {
                 return { q: params.term };
             },
-            processResults: function (data) {
-                return {
-                    results: data.data.map(emp => ({
-                        id: emp.employeeName,
-                        text: emp.employeeName,
-                        dept: emp.department || '-',
-                        phone: emp.phone || '-'
-                    }))
-                };
-            }
+           processResults: function (data) {
+              return {
+                  results: data.data.map(emp => ({
+                      id: emp.employeeName,
+                      text: emp.employeeName,
+                      dept: emp.employeeCode || '-', 
+                      phone: emp.employeeEmail || '-'
+                  }))
+              };
+          }
+
         }
     });
 
