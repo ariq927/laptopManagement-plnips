@@ -62,29 +62,23 @@
 
     <script>
     (function () {
-      // -- STEP 1: ambil preferensi dari localStorage, default 'light'
       const savedTheme = localStorage.getItem('theme') || 'light';
       const html = document.documentElement;
 
-      // -- STEP 2: terapkan langsung ke <html> sebelum page render
       html.setAttribute('data-theme', savedTheme);
 
-      // -- STEP 3: saat halaman sudah siap, sinkronkan toggle & event listener
       window.addEventListener('DOMContentLoaded', () => {
         const checkbox = document.getElementById('theme-toggle-checkbox');
         if (!checkbox) return;
 
-        // pastikan toggle status sesuai tema aktif
         checkbox.checked = html.getAttribute('data-theme') === 'dark';
 
-        // pas toggle diklik
         checkbox.addEventListener('change', (e) => {
           const newTheme = e.target.checked ? 'dark' : 'light';
           html.setAttribute('data-theme', newTheme);
           localStorage.setItem('theme', newTheme);
         });
 
-        // --- tambahan penting: pastikan semua class dark dihapus kalau light ---
         if (savedTheme === 'light') {
           html.removeAttribute('data-theme');
           html.setAttribute('data-theme', 'light');

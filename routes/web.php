@@ -168,7 +168,6 @@ Route::prefix('admin')->group(function () {
     Route::post('/laptop', [AdminController::class, 'storeLaptop'])->name('admin.laptop.store');
     Route::delete('/laptop/{id}', [AdminController::class, 'destroyLaptop'])->name('admin.laptop.destroy');
 
-    // Remove user (yang lagi pinjam)
     Route::delete('/peminjaman/{id}', [AdminController::class, 'removeUserLoan'])->name('admin.peminjaman.remove');
 });
 
@@ -184,7 +183,6 @@ Route::delete('/peminjaman/selesai/{id}', [PeminjamanNewController::class, 'sele
 Route::get('/login', [LoginBasic::class, 'index'])->name('login');
 Route::post('/login', [LoginBasic::class, 'login'])->name('login.post');
 
-// Route dashboard hanya bisa diakses jika login LDAP
 Route::get('/', [UserDashboardController::class, 'index'])
     // ->middleware('auth')
     ->name('dashboard-analytics');
