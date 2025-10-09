@@ -22,11 +22,16 @@ WORKDIR /var/www/html
 
 COPY . /var/www/html
 
+# pastikan folder storage & bootstrap ada
+RUN mkdir -p storage/framework/views storage/framework/cache storage/app storage/logs bootstrap/cache
+
 RUN composer install --optimize-autoloader --no-dev
 
 RUN npm install && npm run build
 
-RUN chmod -R 775 storage bootstrap/cache
+# set permission & ownership agar Laravel bisa menulis
+RUN chmod -R 775 storage bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
