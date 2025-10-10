@@ -2786,10 +2786,10 @@ jsonfile@^3.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-laravel-vite-plugin@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-1.0.1.tgz"
-  integrity sha512-laLEZUnSskIDZtLb2FNRdcjsRUhh1VOVvapbVGVTeaBPJTCF/b6gbPiX2dZdcH1RKoOE0an7L+2gnInk6K33Zw==
+laravel-vite-plugin@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-1.3.0.tgz"
+  integrity sha512-P5qyG56YbYxM8OuYmK2OkhcKe0AksNVJUjq9LUZ5tOekU9fBn9LujYyctI4t9XoLjuMvHJXXpCoPntY1oKltuA==
   dependencies:
     picocolors "^1.0.0"
     vite-plugin-full-reload "^1.1.0"
@@ -3954,7 +3954,7 @@ vite-plugin-full-reload@^1.1.0:
     picocolors "^1.0.0"
     picomatch "^2.3.1"
 
-"vite@^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0", vite@^5.0.0, vite@^5.3.5:
+"vite@^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0", "vite@^5.0.0 || ^6.0.0", vite@^5.3.5:
   version "5.4.20"
   resolved "https://registry.npmjs.org/vite/-/vite-5.4.20.tgz"
   integrity sha512-j3lYzGC3P+B5Yfy/pfKNgVEg4+UtcIJcVRt2cDjIOmhLourAqPqf8P7acgxeiSgUB7E3p2P8/3gNIgDLpwzs4g==
