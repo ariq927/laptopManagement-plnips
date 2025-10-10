@@ -1,25 +1,51 @@
 #!/bin/bash
-set -e  # Exit on error
+set -e
 
-# Generate .env kalau belum ada (dari .env.example), dan set APP_KEY
-if [ ! -f .env ]; then
-    cp .env.example .env
+PORT=${PORT:-8080}
+
+echo "Starting Apache on port $PORT"
+
+# Configure Apache port
+sed -i "s/Listen 80/Listen $PORT/g" /etc/apache2/ports.conf
+sed -i "s/:80/:$PORT/g" /etc/apache2/sites-available/000-default.conf
+
+# Fix Vite manifest location
+echo "Checking Vite manifest..."
+if [ -f public/build/.vite/manifest.json ]; then
+    echo "Copying Vite manifest to correct location..."
+    cp public/build/.vite/manifest.json public/build/manifest.json
+    echo "Manifest copied successfully"
 fi
 
-# Generate APP_KEY kalau kosong (Railway inject via ENV, tapi fallback)
-if ! grep -q "^APP_KEY=" .env || [ "$(grep '^APP_KEY=' .env | cut -d= -f2-)" = "base64:" ]; then
-    php artisan key:generate --no-interaction --force --show | sed 's/^APP_KEY=/APP_KEY=/' >> .env
+# Build frontend if manifest still missing
+if [ ! -f public/build/manifest.json ]; then
+    echo "Manifest not found, building frontend assets..."
+    npm run build
+    # Copy again after build
+    if [ -f public/build/.vite/manifest.json ]; then
+        cp public/build/.vite/manifest.json public/build/manifest.json
+    fi
 fi
 
-# Jalankan migrasi (force untuk production)
-echo "Running migrations..."
+# Verify manifest exists
+if [ -f public/build/manifest.json ]; then
+    echo "✓ Vite manifest found"
+else
+    echo "✗ Warning: Vite manifest still missing"
+fi
+
+# Clear Laravel cache
+php artisan config:clear
+php artisan route:clear  
+php artisan view:clear
+
+# Run migrations
 php artisan migrate --force
 
-# Opsional: Cache config/routes untuk performance
+# Cache Laravel config
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Start Apache (bind otomatis ke port 80, Railway handle $PORT via proxy)
-echo "Starting Apache on port ${PORT:-8080}..."
-exec apache2-foreground
+echo "Starting Apache..."
+apache2-foreground

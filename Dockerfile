@@ -20,19 +20,22 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www/html
 
-# Copy semua file dulu
 COPY . /var/www/html
 
 RUN mkdir -p storage/framework/views storage/framework/cache storage/app storage/logs bootstrap/cache
 
 RUN composer install --optimize-autoloader --no-dev
 
-# Build frontend - PASTIKAN INI SEBELUM SET PERMISSION
 RUN npm install && npm run build
 
-# PENTING: Pastikan build artifacts punya permission yang benar
-RUN chmod -R 775 storage bootstrap/cache public/build \
-    && chown -R www-data:www-data storage bootstrap/cache public/build
+# Copy vite manifest to correct location
+RUN if [ -f public/build/.vite/manifest.json ]; then \
+        cp public/build/.vite/manifest.json public/build/manifest.json; \
+    fi
+
+RUN chmod -R 775 storage bootstrap/cache && \
+    chmod -R 755 public/build && \
+    chown -R www-data:www-data storage bootstrap/cache public
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
