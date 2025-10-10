@@ -22,8 +22,6 @@
   </script>
 
   
-  {{-- Theme utama --}}
-  @vite(['resources/assets/vendor/scss/theme-default.scss'])
 
   {{-- Include default styles --}}
   @include('layouts/sections/styles')

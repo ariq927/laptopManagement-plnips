@@ -9,7 +9,7 @@ import ArchiveLaptopTable from "./components/ArchiveLaptopTable.jsx";
 import '../assets/vendor/scss/theme-default.scss';
 import '../assets/vendor/libs/apex-charts/apex-charts.scss';
 import '../assets/vendor/libs/apex-charts/apexcharts.js';
-
+import '../assets/vendor/scss/_theme/_theme.scss';
 
 // ===== Dashboard =====
 const dashboardEl = document.getElementById("react-dashboard");

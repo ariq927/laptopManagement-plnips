@@ -1,4 +1,14 @@
 {
+  "resources/assets/vendor/scss/_theme/_theme.scss": {
+    "file": "assets/_theme.BFOzHQXh.css",
+    "src": "resources/assets/vendor/scss/_theme/_theme.scss",
+    "isEntry": true
+  },
+  "resources/assets/vendor/scss/theme-default.scss": {
+    "file": "assets/theme-default.D9xWmNNF.css",
+    "src": "resources/assets/vendor/scss/theme-default.scss",
+    "isEntry": true
+  },
   "resources/css/app.css": {
     "file": "assets/app.BBZuvpSG.css",
     "src": "resources/css/app.css",

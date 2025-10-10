@@ -9,9 +9,13 @@ export default defineConfig({
       input: [
         'resources/css/app.css',
         'resources/js/app.jsx',
+
+        // 🟢 Tambahin semua SCSS yang dibutuhkan
+        'resources/assets/vendor/scss/theme-default.scss',
+        'resources/assets/vendor/scss/_theme/_theme.scss',
       ],
       refresh: true,
-      buildDirectory: 'build', // 🟢 wajib ada
+      buildDirectory: 'build',
     }),
     react(),
   ],
@@ -24,6 +28,10 @@ export default defineConfig({
       input: [
         'resources/css/app.css',
         'resources/js/app.jsx',
+
+        // 🟢 Tambahin di sini juga (biar aman waktu build)
+        'resources/assets/vendor/scss/theme-default.scss',
+        'resources/assets/vendor/scss/_theme/_theme.scss',
       ],
       output: {
         entryFileNames: 'assets/[name].[hash].js',
