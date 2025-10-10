@@ -61,7 +61,6 @@ use App\Http\Controllers\tables\Basic as TablesBasic;
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-Route::post('/auth/login-basic', [AuthController::class, 'login'])->name('auth-login-basic-post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
