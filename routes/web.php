@@ -147,7 +147,6 @@ Route::get('/peminjaman', [PeminjamanNewController::class, 'index'])->name('pemi
 Route::get('/peminjaman/create/{id}', [PeminjamanNewController::class, 'create'])->name('peminjaman.create');
 Route::delete('/peminjaman/selesai/{id}', [PeminjamanNewController::class, 'selesai'])->name('peminjaman.selesai');
 Route::get('/tables/basic', [PeminjamanNewController::class, 'index'])->middleware('auth')->name('tables.basic');
-Route::delete('/peminjaman/{id}/selesai', [PeminjamanNewController::class, 'selesai'])->name('peminjaman.selesai');
 
 
 // ========================
