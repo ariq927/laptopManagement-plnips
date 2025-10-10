@@ -177,8 +177,6 @@ Route::put('/laptop/{laptop}', [LaptopController::class, 'update'])->name('lapto
 Route::delete('/laptop/{id}', [AdminController::class, 'destroyLaptop'])->name('laptop.destroy');
 Route::get('/tables/laptop', [AdminController::class, 'index'])->middleware('auth')->name('laptop.index');
 Route::get('/peminjaman/create/{id}', [PeminjamanNewController::class, 'create'])->name('peminjaman.create');
-Route::delete('/peminjaman/selesai/{id}', [PeminjamanNewController::class, 'selesai'])->name('peminjaman.selesai');
-
 
 Route::get('/login', [LoginBasic::class, 'index'])->name('login');
 Route::post('/login', [LoginBasic::class, 'login'])->name('login.post');
@@ -241,4 +239,3 @@ Route::get('/ldap-test', function () {
         ], 500);
     }
 });
-
