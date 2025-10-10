@@ -17,16 +17,18 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // Validasi input pakai 'name' sebagai login
         $request->validate([
-            'username' => 'required|string',
+            'name' => 'required|string',
             'password' => 'required|string',
         ]);
 
         $ldapApiUrl = env('LDAP_API_URL');
 
         try {
+            // Kirim data ke LDAP
             $response = Http::asForm()->withoutVerifying()->post($ldapApiUrl, [
-                'username' => $request->username,
+                'username' => $request->name, // tetap dikirim sebagai username ke LDAP
                 'password' => $request->password,
             ]);
 
@@ -40,12 +42,13 @@ class AuthController extends Controller
             if ($response->successful() && isset($data['message']) && strtolower($data['message']) === 'success') {
                 $ldapUser = $data['datas'] ?? null;
 
+                // Cek atau buat user di DB pakai kolom 'name'
                 $user = User::firstOrCreate(
-                    ['username' => $request->username],
+                    ['name' => $request->name],
                     [
-                        'name' => $ldapUser['displayName'] ?? $request->username,
-                        'email' => $ldapUser['mail'] ?? $request->username.'@example.com',
-                        'password' => Hash::make($request->password) 
+                        'email' => $ldapUser['mail'] ?? $request->name.'@example.com',
+                        'password' => Hash::make($request->password),
+                        'role' => 'user'
                     ]
                 );
 
@@ -55,12 +58,12 @@ class AuthController extends Controller
                 return redirect()->route('dashboard');
             }
 
-            $errorMessage = $data['message'] ?? 'Username atau password salah.';
-            return back()->withErrors(['username' => 'Login gagal: ' . $errorMessage])->withInput();
+            $errorMessage = $data['message'] ?? 'Nama atau password salah.';
+            return back()->withErrors(['name' => 'Login gagal: ' . $errorMessage])->withInput();
 
         } catch (\Exception $e) {
             return back()->withErrors([
-                'username' => 'Terjadi kesalahan koneksi ke server LDAP: ' . $e->getMessage(),
+                'name' => 'Terjadi kesalahan koneksi ke server LDAP: ' . $e->getMessage(),
             ])->withInput();
         }
     }
@@ -77,6 +80,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'user'
         ]);
 
         Auth::login($user);

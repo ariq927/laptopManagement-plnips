@@ -24,8 +24,8 @@
           <form action="{{ route('auth-login-basic-post') }}" method="POST">
             @csrf
             <div class="mb-6">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required autofocus>
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required autofocus>
             </div>
 
             <div class="mb-6 form-password-toggle">
