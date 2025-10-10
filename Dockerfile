@@ -22,21 +22,27 @@ WORKDIR /var/www/html
 
 COPY . /var/www/html
 
-# pastikan folder storage & bootstrap ada
 RUN mkdir -p storage/framework/views storage/framework/cache storage/app storage/logs bootstrap/cache
 
 RUN composer install --optimize-autoloader --no-dev
 
 RUN npm install && npm run build
 
-# set permission & ownership agar Laravel bisa menulis
 RUN chmod -R 775 storage bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache
 
-EXPOSE 80
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
-CMD ["apache2-foreground"]
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+EXPOSE ${PORT:-8080}
+
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
