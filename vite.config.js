@@ -9,9 +9,6 @@ export default defineConfig({
       input: [
         'resources/css/app.css',
         'resources/js/app.jsx',
-        'resources/assets/vendor/scss/theme-default.scss',
-        'resources/assets/vendor/libs/apex-charts/apex-charts.scss',
-        'resources/assets/vendor/libs/apex-charts/apexcharts.js',
       ],
       refresh: true,
       buildDirectory: 'build', // 🟢 wajib ada

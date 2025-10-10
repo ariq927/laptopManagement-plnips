@@ -6,6 +6,10 @@ import Sidebar from "./components/Sidebar.jsx";
 import PeminjamTable from "./components/PeminjamTable.jsx";
 import Laporan from './components/Laporan.jsx';
 import ArchiveLaptopTable from "./components/ArchiveLaptopTable.jsx";
+import '../assets/vendor/scss/theme-default.scss';
+import '../assets/vendor/libs/apex-charts/apex-charts.scss';
+import '../assets/vendor/libs/apex-charts/apexcharts.js';
+
 
 // ===== Dashboard =====
 const dashboardEl = document.getElementById("react-dashboard");
