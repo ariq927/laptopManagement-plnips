@@ -31,10 +31,6 @@ RUN npm install && npm run build
 RUN chmod -R 775 storage bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
-RUN php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache
-
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
