@@ -198,7 +198,6 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth-login-basic-
 
 Route::get('/pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
 
-Route::get('/laptop', [LaptopController::class, 'index'])->name('laptop.index');
 Route::get('/laptop/create', [LaptopController::class, 'create'])->name('laptop.create');
 Route::post('/laptop', [LaptopController::class, 'store'])->name('laptop.store');
 
