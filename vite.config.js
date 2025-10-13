@@ -7,7 +7,7 @@ export default defineConfig({
     laravel({
       input: [
         'resources/assets/vendor/scss/theme-default.scss',
-        'resources/assets/vendor/scss/_theme.scss',
+        'resources/assets/vendor/scss/_theme/_theme.scss',
         'resources/js/app.jsx',
       ],
       refresh: true,
