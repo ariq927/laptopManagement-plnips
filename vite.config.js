@@ -6,10 +6,9 @@ export default defineConfig({
   plugins: [
     laravel({
       input: [
+        'resources/assets/vendor/scss/core.scss',
         'resources/assets/vendor/scss/theme-default.scss',
-        'resources/assets/vendor/scss/_theme/_theme.scss',
-        'resources/assets/vendor/libs/apex-charts/apex-charts.scss',
-        'resources/assets/vendor/libs/apex-charts/apexcharts.js',
+        'resources/assets/vendor/scss/custom-override.scss',
         'resources/js/app.jsx',
       ],
       refresh: true,
@@ -17,7 +16,7 @@ export default defineConfig({
     react(),
   ],
   build: {
-    outDir: 'public/build', 
+    outDir: 'public/build',
     emptyOutDir: true,
     manifest: true,
   },
