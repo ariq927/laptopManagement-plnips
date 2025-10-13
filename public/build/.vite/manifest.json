@@ -1,8 +1,21 @@
 {
+  "_apexcharts.common-DDzvm6nD.js": {
+    "file": "assets/apexcharts.common-DDzvm6nD.js",
+    "name": "apexcharts.common"
+  },
   "resources/assets/vendor/libs/apex-charts/apex-charts.scss": {
     "file": "assets/apex-charts-C6kwvbgn.css",
     "src": "resources/assets/vendor/libs/apex-charts/apex-charts.scss",
     "isEntry": true
+  },
+  "resources/assets/vendor/libs/apex-charts/apexcharts.js": {
+    "file": "assets/apexcharts-DTpSU3hM.js",
+    "name": "apexcharts",
+    "src": "resources/assets/vendor/libs/apex-charts/apexcharts.js",
+    "isEntry": true,
+    "imports": [
+      "_apexcharts.common-DDzvm6nD.js"
+    ]
   },
   "resources/assets/vendor/scss/_theme/_theme.scss": {
     "file": "assets/_theme-BFOzHQXh.css",
@@ -15,10 +28,13 @@
     "isEntry": true
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-RdzS0IoG.js",
+    "file": "assets/app-7frAc0za.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
+    "imports": [
+      "_apexcharts.common-DDzvm6nD.js"
+    ],
     "css": [
       "assets/app-DYM4nxC3.css"
     ]
