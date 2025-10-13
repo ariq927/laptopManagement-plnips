@@ -7,7 +7,7 @@
 @endsection
 
 @section('vendor-script')
-@vite('resources/assets/vendor/libs/apex-charts/apexcharts.js')
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0"></script>
 @endsection
 
 @section('page-style')
