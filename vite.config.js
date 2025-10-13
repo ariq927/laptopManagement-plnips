@@ -8,6 +8,7 @@ export default defineConfig({
       input: [
         'resources/assets/vendor/scss/theme-default.scss',
         'resources/assets/vendor/scss/_theme/_theme.scss',
+        'resources/assets/vendor/libs/apex-charts/apex-charts.scss',
         'resources/js/app.jsx',
       ],
       refresh: true,

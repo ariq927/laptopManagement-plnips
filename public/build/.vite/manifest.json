@@ -1,4 +1,9 @@
 {
+  "resources/assets/vendor/libs/apex-charts/apex-charts.scss": {
+    "file": "assets/apex-charts-C6kwvbgn.css",
+    "src": "resources/assets/vendor/libs/apex-charts/apex-charts.scss",
+    "isEntry": true
+  },
   "resources/assets/vendor/scss/_theme/_theme.scss": {
     "file": "assets/_theme-BFOzHQXh.css",
     "src": "resources/assets/vendor/scss/_theme/_theme.scss",
