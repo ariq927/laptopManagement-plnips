@@ -1,4 +1,9 @@
 {
+  "resources/assets/vendor/scss/_theme/_theme.scss": {
+    "file": "assets/_theme-BFOzHQXh.css",
+    "src": "resources/assets/vendor/scss/_theme/_theme.scss",
+    "isEntry": true
+  },
   "resources/assets/vendor/scss/core.scss": {
     "file": "assets/core-CIRmDXXs.css",
     "src": "resources/assets/vendor/scss/core.scss",
