@@ -3,7 +3,7 @@
 @section('title', 'Dashboard - Laptop Management PLN IPS')
 
 @section('vendor-style')
-@vite('resources/assets/vendor/libs/apex-charts/apex-charts.scss')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.css">
 @endsection
 
 @section('vendor-script')
