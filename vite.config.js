@@ -14,4 +14,9 @@ export default defineConfig({
     }),
     react(),
   ],
+  build: {
+    outDir: 'public/build', 
+    emptyOutDir: true,
+    manifest: true,
+  },
 });
